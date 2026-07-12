@@ -1,0 +1,379 @@
+/* ==========================================================================
+   1. BASE & STRUCTURE GENERALE
+   ========================================================================== */
+body { 
+    font-family: system-ui, -apple-system, sans-serif; 
+    background-color: #f8fafc; 
+    color: #0f172a; 
+    transition: all 0.2s ease; 
+}
+
+/* ==========================================================================
+   2. HEADER & BARRE DE RECHERCHE
+   ========================================================================== */
+.main-header { 
+    background: #ffffff; 
+    border-bottom: 1px solid #e2e8f0; 
+}
+
+.logo-brand {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    transition: height 0.2s ease;
+}
+
+.brand-text {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.search-wrapper .form-control { 
+    border-radius: 30px; 
+    padding-left: 15px; 
+    padding-right: 40px; 
+    height: 40px; 
+    font-size: 14px; 
+    border: 1.5px solid #cbd5e1; 
+    background-color: #ffffff !important; 
+    color: #0f172a !important; 
+}
+
+.search-wrapper .search-btn { 
+    position: absolute; 
+    right: 4px; 
+    top: 4px; 
+    bottom: 4px; 
+    border-radius: 50%; 
+    width: 32px; 
+    height: 32px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border: none; 
+    background: transparent; 
+    color: #64748b; 
+}
+
+/* ==========================================================================
+   3. NAVIGATION UTILITIES (AIDE, FAVORIS, THEME, QUIT)
+   ========================================================================== */
+.nav-utillity-link,
+.theme-toggle-btn-nav { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    text-decoration: none; 
+    color: #475569; 
+    font-size: 11px; 
+    font-weight: 500; 
+    cursor: pointer; 
+    background: none; 
+    border: none; 
+    padding: 0 4px; 
+    transition: color 0.2s ease;
+}
+
+.nav-utillity-link i,
+.theme-toggle-btn-nav i { 
+    font-size: 18px; 
+    color: #1e293b; 
+}
+
+.nav-utillity-link:hover,
+.theme-toggle-btn-nav:hover { 
+    color: #f97316; 
+}
+
+.cart-box-display { 
+    border: 1.5px solid #e2e8f0; 
+    border-radius: 20px; 
+    padding: 6px 12px; 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+    font-weight: bold; 
+    background-color: #f8fafc; 
+    color: #0f172a; 
+    font-size: 13px; 
+    text-decoration: none; 
+}
+
+/* Subnav Catégories */
+.categories-subnav { 
+    background: #ffffff; 
+    border-bottom: 1px solid #e2e8f0; 
+}
+
+.categories-subnav .nav-link { 
+    color: #1e293b; 
+    font-size: 11.5px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px; 
+    padding: 10px 12px; 
+    border-bottom: 3px solid transparent; 
+    white-space: nowrap; 
+    transition: all 0.2s; 
+}
+
+.categories-subnav .nav-link:hover, 
+.categories-subnav .nav-link.active { 
+    color: #f97316; 
+    border-bottom-color: #f97316; 
+}
+
+/* ==========================================================================
+   4. CONTENU & PRODUITS
+   ========================================================================== */
+.promo-banner-carousel { 
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+}
+
+.banner-slide-item { 
+    height: 180px; 
+    background-size: cover; 
+    background-position: center; 
+    position: relative; 
+}
+
+.banner-slide-item::before { 
+    content: ""; 
+    position: absolute; 
+    top: 0; left: 0; right: 0; bottom: 0; 
+    background: linear-gradient(to right, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.2) 100%); 
+    z-index: 1; 
+}
+
+.banner-caption-layer { 
+    position: absolute; 
+    bottom: 20px; 
+    left: 20px; 
+    right: 20px; 
+    z-index: 2; 
+    color: #ffffff; 
+}
+
+.banner-title-main { 
+    font-size: 18px; 
+    font-weight: 700; 
+    margin-bottom: 6px; 
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); 
+}
+
+.banner-accent-badge { 
+    background-color: #f97316; 
+    color: #ffffff; 
+    display: inline-block; 
+    padding: 4px 12px; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    font-size: 13px; 
+    border-radius: 4px; 
+}
+
+.line-clamp-2 { 
+    display: -webkit-box; 
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
+    height: 36px; 
+}
+
+.product-card { 
+    background: #ffffff; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    padding: 10px !important; 
+}
+
+.product-img { 
+    height: 130px; 
+    width: 100%; 
+    object-fit: cover; 
+    border-radius: 6px; 
+}
+
+/* ==========================================================================
+   5. FOOTER
+   ========================================================================== */
+.small-accent-title { 
+    font-size: 11px; 
+    letter-spacing: 1.5px; 
+    color: #94a3b8 !important; 
+}
+
+.footer-navigation-link { 
+    font-size: 13px; 
+    color: #94a3b8; 
+    text-decoration: none; 
+    padding: 4px 0; 
+    display: inline-block; 
+}
+
+.social-btn { 
+    width: 36px; 
+    height: 36px; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 50%; 
+    background: rgba(255, 255, 255, 0.03); 
+    color: #94a3b8; 
+    text-decoration: none; 
+}
+
+.admin-hidden-link { 
+    color: #475569; 
+    font-size: 12px; 
+}
+
+
+
+/* ### 2. Le CSS Complémentaire à ajouter (`index_style.css`)
+
+Ajoutez ces règles sous la section **4. CONTENU & PRODUITS** de votre fichier CSS principal pour donner un aspect moderne et épuré à vos nouveaux boutons et étiquettes :
+
+```css */
+/* Boutons circulaires d'actions (Like & Favoris) */
+.btn-action-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: #f1f5f9;
+    color: #475569;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.btn-action-circle:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
+
+/* État actif du bouton de Like (Cœur Rouge rempli) */
+.btn-action-circle.liked {
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+/* État actif du bouton Favoris (Marque-page Jaune rempli) */
+.btn-action-circle.favorited {
+    background-color: #fef3c7;
+    color: #f59e0b;
+}
+
+/* Badge de catalogue par-dessus l'image */
+.font-size-11 {
+    font-size: 11px !important;
+}
+
+/* Prise en compte du Dark Mode pour les nouveaux boutons */
+[data-bs-theme="dark"] .btn-action-circle {
+    background-color: #334155;
+    color: #cbd5e1;
+}
+
+[data-bs-theme="dark"] .btn-action-circle:hover {
+    background-color: #475569;
+    color: #f8fafc;
+}
+
+[data-bs-theme="dark"] .btn-action-circle.liked {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   6. MODE SOMBRE (DARK MODE)
+   ========================================================================== */
+[data-bs-theme="dark"] body { background-color: #0f172a; color: #f8fafc; }
+[data-bs-theme="dark"] .main-header, [data-bs-theme="dark"] .categories-subnav { background: #1e293b; border-color: #334155; }
+[data-bs-theme="dark"] .categories-subnav .nav-link { color: #cbd5e1; }
+[data-bs-theme="dark"] .categories-subnav .nav-link:hover, [data-bs-theme="dark"] .categories-subnav .nav-link.active { color: #f97316; }
+
+[data-bs-theme="dark"] .search-wrapper .form-control { background-color: #0f172a !important; border-color: #334155; color: #f8fafc !important; }
+[data-bs-theme="dark"] .nav-utillity-link i,
+[data-bs-theme="dark"] .theme-toggle-btn-nav i { color: #f8fafc; }
+[data-bs-theme="dark"] .theme-toggle-btn-nav:hover i { color: #f97316; }
+
+[data-bs-theme="dark"] .cart-box-display { background-color: #0f172a; border-color: #334155; color: #f8fafc; }
+[data-bs-theme="dark"] .product-card { background: #1e293b; border-color: #334155; }
+
+/* ==========================================================================
+   7. MEDIA QUERIES (DESKTOP & TRANSITIONS)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .logo-brand { height: 44px; }
+    .brand-text { font-size: 22px; }
+    .search-wrapper .form-control { height: 44px; font-size: 15px; }
+    .search-wrapper .search-btn { width: 36px; height: 36px; }
+    
+    .nav-utillity-link,
+    .theme-toggle-btn-nav { font-size: 13px; padding: 0 10px; }
+    .nav-utillity-link i,
+    .theme-toggle-btn-nav i { font-size: 20px; }
+    
+    .cart-box-display { padding: 8px 16px; border-radius: 8px; font-size: 14px; }
+    .categories-subnav .nav-link { font-size: 12.5px; padding: 12px 16px; }
+    
+    .banner-slide-item { height: 360px; }
+    .banner-title-main { font-size: 32px; }
+    .banner-accent-badge { font-size: 18px; padding: 6px 18px; }
+    .product-img { height: 180px; }
+    .product-card { padding: 15px !important; }
+
+    /* Transitions & Animations au survol (Desktop) */
+    .footer-navigation-link { transition: all 0.2s ease-in-out; }
+    .footer-navigation-link:hover { color: #3b82f6; transform: translateX(4px); }
+    
+    .social-btn { transition: all 0.2s ease; }
+    .social-btn:hover { background: rgba(59, 130, 246, 0.1); color: #3b82f6; transform: translateY(-2px); }
+    
+    .dev-signature-link { transition: color 0.2s; }
+    .dev-signature-link:hover { color: #60a5fa !important; }
+    
+    .admin-hidden-link { transition: all 0.2s ease; }
+    .admin-hidden-link:hover { color: #f59e0b; text-shadow: 0 0 8px rgba(245, 158, 11, 0.3); }
+}
+
+
+
+
+
+
+
+
+.small-accent-title { font-size: 11px; letter-spacing: 1.5px; color: #94a3b8 !important; }
+    .footer-navigation-link { font-size: 13px; color: #94a3b8; text-decoration: none; padding: 4px 0; display: inline-block; }
+    .social-btn { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.03); color: #94a3b8; text-decoration: none; }
+    .admin-hidden-link { color: #475569; font-size: 12px; }
+
+    @media (min-width: 768px) {
+        .footer-navigation-link { transition: all 0.2s ease-in-out; }
+        .footer-navigation-link:hover { color: #3b82f6; transform: translateX(4px); }
+        .social-btn { transition: all 0.2s ease; }
+        .social-btn:hover { background: rgba(59, 130, 246, 0.1); color: #3b82f6; transform: translateY(-2px); }
+        .dev-signature-link { transition: color 0.2s; }
+        .dev-signature-link:hover { color: #60a5fa !important; }
+        .admin-hidden-link { transition: all 0.2s ease; }
+        .admin-hidden-link:hover { color: #f59e0b; text-shadow: 0 0 8px rgba(245, 158, 11, 0.3); }
+    }

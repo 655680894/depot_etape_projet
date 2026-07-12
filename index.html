@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express Market | Accueil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/index_style.css">
+    <link rel="stylesheet" href="css/footer_style.css">
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body>
+
+    <!-- HEADER PRINCIPAL -->
+    <header class="main-header sticky-top">
+        <div class="container py-2 py-md-3 px-3">
+            <div class="row align-items-center g-2 g-md-3">
+                
+                <!-- Zone Logo -->
+                <div class="col-7 col-md-4 col-lg-3">
+                    <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+                        <img src="image/logo.png" alt="" class="logo-brand">
+                        <span class="brand-text">
+                            <span style="color: #1e3a8a;">Express</span><span style="color: #f97316;">Market</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Barre de Recherche Unique (Pleine largeur) -->
+                <div class="col-12 col-md-5 col-lg-6 order-3 order-md-2 mt-2 mt-md-0">
+                    <div class="search-wrapper position-relative w-100">
+                        <input type="text" id="liveSearchInput" class="form-control" placeholder="Chercher un produit, un vendeur, un secteur..." onkeyup="filterCatalogProducts()">
+                        <button class="search-btn" type="button"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Liens Utilitaires Réorganisés -->
+                <div class="col-5 col-md-3 order-2 order-md-3 d-flex align-items-center justify-content-end gap-1 gap-md-2">
+                    
+                     <!-- 1. AIDE -->
+                    <div class="nav-utillity-link position-relative" title="Aide">
+                        <i class="bi bi-chat-left-text"></i>
+                        <span class="d-none d-lg-inline">Aide</span>
+                    </div>
+
+                    <!-- 2. FAVORIS -->
+                    <div class="nav-utillity-link position-relative" onclick="window.location.href=''" title="Favoris">
+                        <i class="bi bi-heart"></i>
+                        <span class="position-absolute top-0 start-50 translate-middle-x badge rounded-pill bg-info" id="favBadgeCount" style="font-size: 8px;">0</span>
+                    </div>
+
+                    <!-- 3. MODE SOMBRE -->
+                    <button class="theme-toggle-btn-nav" onclick="toggleTheme()" title="Changer de mode">
+                        <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+                    </button>
+
+                    <!-- 4. QUITTER -->
+                    <a href="" class="nav-utillity-link" title="Quitter la session">
+                        <i class="bi bi-box-arrow-right text-danger"></i>
+                    </a>
+
+                    <!-- Mon Compte -->
+                    <a href="register.html" class="nav-utillity-link" title="Compte">
+                        <i class="bi bi-person"></i>
+                        <span class="d-none d-md-inline">INSCRIPTION</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Sous-navigation Catégories -->
+        <nav class="categories-subnav">
+            <div class="container d-flex align-items-center overflow-x-auto justify-content-start justify-content-md-center px-2">
+                <a href="index.html" class="nav-link">Tout le Marché</a>
+                
+                <a href="" class="nav-link text-primary">
+                    <i class="bi bi-fire text-warning me-1"></i> Boutiques Populaires
+                </a>
+
+                <a href="index.html" class="nav-link">Autres</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="container px-3 py-3">
+
+        <!-- Section Slider / Carousel -->
+<section class="mb-4 mt-2">
+    <div id="featuredShopsCarousel" class="carousel slide promo-banner-carousel" data-bs-ride="carousel">
+        
+        <!-- Indicateurs (Les petits traits cliquables en bas) -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#featuredShopsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#featuredShopsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#featuredShopsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+
+        <div class="carousel-inner">
+            
+            <!-- IMAGE SLIDE 1 -->
+            <div class="carousel-item active" data-bs-interval="4000">
+                <div class="banner-slide-item position-relative">
+                    <!-- REMPLACEZ LE SRC PAR VOTRE PREMIÈRE PHOTO LOCALE -->
+                    <img src="image/image1.png" alt="Offres Express Market" class="w-100 h-100 object-fit-cover position-absolute top-0 start-0" style="z-index: 0;">
+                    
+                    <!-- Calque de texte par-dessus l'image -->
+                    <div class="banner-caption-layer" style="z-index: 2;">
+                        <div class="banner-title-main">Découvrez les offres de la semaine</div>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="banner-accent-badge">Boutique En Vedette</span>
+                            <a href="" class="btn btn-sm btn-light fw-bold rounded-pill px-3 shadow-sm text-dark">
+                                Visiter <i class="bi bi-arrow-right ms-1 text-danger"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE SLIDE 2 -->
+            <div class="carousel-item" data-bs-interval="4000">
+                <div class="banner-slide-item position-relative">
+                    <!-- REMPLACEZ LE SRC PAR VOTRE DEUXIÈME PHOTO LOCALE -->
+                    <img src="image/image2.png" alt="Rejoindre Express Market" class="w-100 h-100 object-fit-cover position-absolute top-0 start-0" style="z-index: 0;">
+                    
+                    <div class="banner-caption-layer" style="z-index: 2;">
+                        <div class="banner-title-main">Boostez vos ventes en ligne</div>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="banner-accent-badge" style="background-color: #3b82f6;">Espace Vendeur</span>
+                            <a href="register.html" class="btn btn-sm btn-light fw-bold rounded-pill px-3 shadow-sm text-dark">
+                                Créer une boutique <i class="bi bi-shop ms-1 text-primary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE SLIDE 3 -->
+            <div class="carousel-item" data-bs-interval="4000">
+                <div class="banner-slide-item position-relative">
+                    <!-- REMPLACEZ LE SRC PAR VOTRE TROISIÈME PHOTO LOCALE -->
+                    <img src="image/image2.png" alt="Nouveautés Express Market" class="w-100 h-100 object-fit-cover position-absolute top-0 start-0" style="z-index: 0;">
+                    
+                    <div class="banner-caption-layer" style="z-index: 2;">
+                        <div class="banner-title-main">Des produits locaux de qualité</div>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="banner-accent-badge" style="background-color: #10b981;">Nouveautés</span>
+                            <a href="" class="btn btn-sm btn-light fw-bold rounded-pill px-3 shadow-sm text-dark">
+                                Découvrir <i class="bi bi-basket ms-1 text-success"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Boutons Précédent / Suivant -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#featuredShopsCarousel" data-bs-slide="prev" style="z-index: 3;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Précédent</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featuredShopsCarousel" data-bs-slide="next" style="z-index: 3;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Suivant</span>
+        </button>
+    </div>
+</section>
+
+
+        <!-- Section Offres et Grille Produits -->
+<section class="mb-5">
+    <h6 class="fw-bold text-uppercase text-muted small mb-3" style="letter-spacing: 0.5px; font-size:11px;">
+        <i class="bi bi-grid-3x3-gap text-muted me-1"></i> Offres en cours sur ExpressMarket
+    </h6>
+    
+    <!-- Message Vide -->
+    <div class="text-center py-5 border border-secondary border-opacity-10 rounded bg-white p-4 shadow-sm mb-4 d-none">
+        <i class="bi bi-handbag text-black display-6"></i>
+        <p class="text-bold small mt-2 mb-0">Aucun produit référencé dans cette catégorie pour le moment.</p>
+    </div>
+
+    <!-- Grille d'articles unique unifiée pour un alignement par 3 -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-2 g-md-3" id="catalogGrid">
+        
+        <!-- ARTICLE 1 -->
+        <div class="col product-item-container">
+    <div class="card product-card h-100 d-flex flex-column justify-content-between shadow-sm p-2">
+        <div>
+            <!-- Conteneur de l'image optimisé pour le badge -->
+            <div class="position-relative overflow-hidden rounded-2">
+                <img src="image/btq2.png" class="product-img w-100" alt="Produit 1" style="height: 200px; object-fit: cover;">
+                
+                <!-- BADGE REVISITÉ : Visible sur tout type de fond -->
+                <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                      style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                    Mode & Styles
+                </span>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                <h6 class="fw-bold mb-0 text-truncate product-title-text text-dark-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 1</h6>
+                <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+            </div>
+            <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                <i class="bi bi-shop text-primary small"></i>
+                <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+            </div>
+        </div>
+        <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+            <div class="d-flex align-items-center gap-1">
+                <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_1', this)" title="Liker l'article">
+                    <i class="bi bi-heart"></i>
+                </button>
+                <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_1')" title="Ajouter aux favoris">
+                    <i class="bi bi-bookmark-star"></i>
+                </button>
+            </div>
+            <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_1', 'Nom Article 1')" style="font-size: 11px;" title="Ajouter au panier">
+                    <i class="bi bi-cart-plus"></i> Prendre
+                </button>
+                <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_1', 'Nom Article 1')" style="font-size: 11px;">
+                    <i class=""></i> Commander
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- ARTICLE 2 -->
+        <div class="col product-item-container">
+    <div class="card product-card h-100 d-flex flex-column justify-content-between shadow-sm p-2">
+        <div>
+            <!-- Conteneur de l'image optimisé pour le badge -->
+            <div class="position-relative overflow-hidden rounded-2">
+                <img src="image/btq4.png" class="product-img w-100" alt="Produit 1" style="height: 200px; object-fit: cover;">
+                
+                <!-- BADGE REVISITÉ : Visible sur tout type de fond -->
+                <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                      style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                    Mode & Styles
+                </span>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                <h6 class="fw-bold mb-0 text-truncate product-title-text text-dark-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 1</h6>
+                <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+            </div>
+            <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                <i class="bi bi-shop text-primary small"></i>
+                <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+            </div>
+        </div>
+        <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+            <div class="d-flex align-items-center gap-1">
+                <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_1', this)" title="Liker l'article">
+                    <i class="bi bi-heart"></i>
+                </button>
+                <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_1')" title="Ajouter aux favoris">
+                    <i class="bi bi-bookmark-star"></i>
+                </button>
+            </div>
+            <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_1', 'Nom Article 1')" style="font-size: 11px;" title="Ajouter au panier">
+                    <i class="bi bi-cart-plus"></i> Prendre
+                </button>
+                <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_1', 'Nom Article 1')" style="font-size: 11px;">
+                    <i class="bi bi-whatsapp"></i> Commander
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- ARTICLE 3 -->
+        <div class="col product-item-container">
+    <div class="card product-card h-100 d-flex flex-column justify-content-between shadow-sm p-2">
+        <div>
+            <!-- Conteneur de l'image optimisé pour le badge -->
+            <div class="position-relative overflow-hidden rounded-2">
+                <img src="image/btq6.png" class="product-img w-100" alt="Produit 1" style="height: 200px; object-fit: cover;">
+                
+                <!-- BADGE REVISITÉ : Visible sur tout type de fond -->
+                <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                      style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                    Mode & Styles
+                </span>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                <h6 class="fw-bold mb-0 text-truncate product-title-text text-dark-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 1</h6>
+                <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+            </div>
+            <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                <i class="bi bi-shop text-primary small"></i>
+                <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+            </div>
+        </div>
+        <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+            <div class="d-flex align-items-center gap-1">
+                <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_1', this)" title="Liker l'article">
+                    <i class="bi bi-heart"></i>
+                </button>
+                <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_1')" title="Ajouter aux favoris">
+                    <i class="bi bi-bookmark-star"></i>
+                </button>
+            </div>
+            <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_1', 'Nom Article 1')" style="font-size: 11px;" title="Ajouter au panier">
+                    <i class="bi bi-cart-plus"></i> Prendre
+                </button>
+                <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_1', 'Nom Article 1')" style="font-size: 11px;">
+                    <i class="bi bi-whatsapp"></i> Commander
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- ARTICLE 5 -->
+        <div class="col product-item-container">
+    <div class="card product-card h-100 d-flex flex-column justify-content-between shadow-sm p-2">
+        <div>
+            <!-- Conteneur de l'image optimisé pour le badge -->
+            <div class="position-relative overflow-hidden rounded-2">
+                <img src="image/btq8.png" class="product-img w-100" alt="Produit 1" style="height: 200px; object-fit: cover;">
+                
+                <!-- BADGE REVISITÉ : Visible sur tout type de fond -->
+                <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                      style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                    Electro menager
+                </span>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                <h6 class="fw-bold mb-0 text-truncate product-title-text text-dark-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 1</h6>
+                <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+            </div>
+            <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                <i class="bi bi-shop text-primary small"></i>
+                <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+            </div>
+        </div>
+        <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+            <div class="d-flex align-items-center gap-1">
+                <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_1', this)" title="Liker l'article">
+                    <i class="bi bi-heart"></i>
+                </button>
+                <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_1')" title="Ajouter aux favoris">
+                    <i class="bi bi-bookmark-star"></i>
+                </button>
+            </div>
+            <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_1', 'Nom Article 1')" style="font-size: 11px;" title="Ajouter au panier">
+                    <i class="bi bi-cart-plus"></i> Prendre
+                </button>
+                <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_1', 'Nom Article 1')" style="font-size: 11px;">
+                    <i class="bi bi-whatsapp"></i> Commander
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+   <div class="col product-item-container">
+    <div class="card product-card h-100 d-flex flex-column justify-content-between shadow-sm p-2">
+        <div>
+            <!-- Conteneur de l'image optimisé pour le badge -->
+            <div class="position-relative overflow-hidden rounded-2">
+                <img src="image/elek1.png" class="product-img w-100" alt="Produit 1" style="height: 200px; object-fit: cover;">
+                
+                <!-- BADGE REVISITÉ : Visible sur tout type de fond -->
+                <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                      style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                    Electro menager
+                </span>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                <h6 class="fw-bold mb-0 text-truncate product-title-text text-dark-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 1</h6>
+                <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+            </div>
+            <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                <i class="bi bi-shop text-primary small"></i>
+                <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+            </div>
+        </div>
+        <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+            <div class="d-flex align-items-center gap-1">
+                <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_1', this)" title="Liker l'article">
+                    <i class="bi bi-heart"></i>
+                </button>
+                <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_1')" title="Ajouter aux favoris">
+                    <i class="bi bi-bookmark-star"></i>
+                </button>
+            </div>
+            <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_1', 'Nom Article 1')" style="font-size: 11px;" title="Ajouter au panier">
+                    <i class="bi bi-cart-plus"></i> Prendre
+                </button>
+                <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_1', 'Nom Article 1')" style="font-size: 11px;">
+                    <i class="bi bi-whatsapp"></i> Commander
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+   <div class="col product-item-container">
+    <div class="card product-card h-100 d-flex flex-column justify-content-between shadow-sm p-2">
+        <div>
+            <!-- Conteneur de l'image optimisé pour le badge -->
+            <div class="position-relative overflow-hidden rounded-2">
+                <img src="image/elek2.png" class="product-img w-100" alt="Produit 1" style="height: 200px; object-fit: cover;">
+                
+                <!-- BADGE REVISITÉ : Visible sur tout type de fond -->
+                <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                      style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                    Electro menager
+                </span>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                <h6 class="fw-bold mb-0 text-truncate product-title-text text-dark-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 1</h6>
+                <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+            </div>
+            <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                <i class="bi bi-shop text-primary small"></i>
+                <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+            </div>
+        </div>
+        <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+            <div class="d-flex align-items-center gap-1">
+                <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_1', this)" title="Liker l'article">
+                    <i class="bi bi-heart"></i>
+                </button>
+                <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_1')" title="Ajouter aux favoris">
+                    <i class="bi bi-bookmark-star"></i>
+                </button>
+            </div>
+            <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_1', 'Nom Article 1')" style="font-size: 11px;" title="Ajouter au panier">
+                    <i class="bi bi-cart-plus"></i> Prendre
+                </button>
+                <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_1', 'Nom Article 1')" style="font-size: 11px;">
+                    <i class="bi bi-whatsapp"></i> Commander
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+   <div class="col product-item-container">
+    <div class="card product-card h-100 d-flex flex-column justify-content-between shadow-sm p-2">
+        <div>
+            <!-- Conteneur de l'image optimisé pour le badge -->
+            <div class="position-relative overflow-hidden rounded-2">
+                <img src="image/elek3.png" class="product-img w-100" alt="Produit 1" style="height: 200px; object-fit: cover;">
+                
+                <!-- BADGE REVISITÉ : Visible sur tout type de fond -->
+                <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                      style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                    Electro menager
+                </span>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                <h6 class="fw-bold mb-0 text-truncate product-title-text text-dark-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 1</h6>
+                <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+            </div>
+            <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                <i class="bi bi-shop text-primary small"></i>
+                <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+            </div>
+        </div>
+        <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+            <div class="d-flex align-items-center gap-1">
+                <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_1', this)" title="Liker l'article">
+                    <i class="bi bi-heart"></i>
+                </button>
+                <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_1')" title="Ajouter aux favoris">
+                    <i class="bi bi-bookmark-star"></i>
+                </button>
+            </div>
+            <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_1', 'Nom Article 1')" style="font-size: 11px;" title="Ajouter au panier">
+                    <i class="bi bi-cart-plus"></i> Prendre
+                </button>
+                <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_1', 'Nom Article 1')" style="font-size: 11px;">
+                    <i class="bi bi-whatsapp"></i> Commander
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    </main>
+<footer class="mt-5" style="background-color: #1e293b; border-top: 1px solid #334155;" aria-label="Pied de page">
+    <div class="container pt-4 pb-3 px-3">
+        
+        <div class="row g-4 text-center text-sm-start">
+            
+            <div class="col-12 col-lg-5">
+                <h5 class="text-white fw-bold mb-3 d-flex align-items-center justify-content-center justify-content-sm-start gap-2">
+                    <span class="p-2 rounded-3 bg-primary bg-opacity-10 text-primary d-inline-flex">
+                        <i class="bi bi-shop fs-5"></i>
+                    </span>
+                    <span>Express Market</span>
+                </h5>
+                <p class="text-white small mb-3" style="line-height: 1.6; font-size: 13px;">
+                    La vitrine e-commerce pensée pour la communauté étudiante. Fini le désordre des groupes WhatsApp : centralisez vos produits, gérez vos commandes et boostez votre visibilité sur le campus.
+                </p>
+                <div class="d-flex justify-content-center justify-content-sm-start gap-2.5">
+                    <a href="#" class="social-btn" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                    <a href="#" class="social-btn" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="mailto:support@expressmarket.com" class="social-btn" aria-label="Email"><i class="bi bi-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <h6 class="text-uppercase fw-bold mb-3 small-accent-title">Ressources</h6>
+                
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-4 d-flex flex-column justify-content-between">
+                <div>
+                    <h6 class="text-uppercase fw-bold mb-3 small-accent-title">Business</h6>
+                    <p class="text-white small mb-3" style="font-size: 12px;">Vous gérez un commerce ou un service sur le campus ?</p>
+                </div>
+                <a href="./login.html" class="btn btn-primary btn-sm rounded-pill py-2.5 px-3 w-100 fw-semibold text-nowrap shadow-sm">
+                    <i class="bi bi-plus-circle me-1"></i>Ouvrir ma boutique
+                </a>
+            </div>
+
+        </div>
+
+        <hr class="mt-4 mb-3 border-secondary border-opacity-25">
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            
+            <div class="d-flex flex-column flex-sm-row align-items-center gap-2 gap-sm-3 order-2 order-md-1">
+                <p class="text-white small mb-0">&copy; 2026 Express Market. Tous droits réservés.</p>
+                <span class="text-secondary d-none d-sm-inline">&bull;</span>
+                <a href="#" class="admin-hidden-link small text-decoration-none">
+                    <i class="bi bi-shield-lock-fill me-1"></i>Administration
+                </a>
+            </div>
+            
+            <p class="text-white small mb-0 order-1 order-md-2">
+                POWERY <i class="bi bi-heart-fill text-danger mx-1"></i> by 
+                <a href="https://github.com" target="_blank" class="dev-signature-link text-decoration-none fw-bold text-info">
+                    Nelson.App
+                </a>
+            </p>
+        </div>
+    </div>
+</footer>
+<script src="js/index_script.js"></script>
+</body>
+</html>

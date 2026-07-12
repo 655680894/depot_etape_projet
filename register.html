@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express Market | Rejoindre la plateforme</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons (Correction du lien CDN brisé ou générique) -->
+    <link rel="stylesheet" href="https://jsdelivr.net">
+    <!-- Fichier CSS Mobile-First -->
+    <link rel="stylesheet" href="css/register.css">
+</head>
+<body>
+    
+<div class="auth-card shadow-lg">
+    <!-- Zone de Branding -->
+    <div class="d-flex align-items-center justify-content-center gap-2 mb-4">
+        <img src="images/logo.png" alt="EM" class="logo-brand">
+        <span class="brand-text">
+            <span style="color: #60a5fa;">Express</span><span style="color: #f97316;">Market</span>
+        </span>
+    </div>
+
+    <h3 class="fw-bold text-center text-primary mb-1">Créer un compte</h3>
+    <p class="text-center text-muted small mb-4">Rejoignez le marché dynamique d'Express Market</p>
+
+    <form action="login.html" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label small text-white">Nom d'utilisateur</label>
+            <input type="text" name="username" class="form-control rounded-3" required autocomplete="off">
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label small text-white">Numéro de Téléphone</label>
+            <input type="tel" name="tel" class="form-control rounded-3" required placeholder="EX:+237xxxxxxxx">
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label small text-white">Type de Profil</label>
+            <select name="role" id="roleSelect" class="form-select rounded-3" onchange="toggleVendorFields()">
+                <option value="client">Acheteur</option>
+                <option value="vendeur">Vendeur</option>
+            </select>
+        </div>
+
+        <!-- Champ Image : Structure adaptative (Verticale sur mobile, Horizontale sur PC) -->
+        <div class="mb-3">
+            <label class="form-label small text-white" id="imageLabel">Photo de Profil</label>
+            <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-3">
+                
+                <!-- Conteneur d'affichage de l'image -->
+                <div class="preview-wrapper flex-shrink-0" id="previewContainer">
+                    <i class="bi bi-image text-muted fs-4" id="previewPlaceholder"></i>
+                    <img src="" alt="Aperçu" id="imagePreview" class="d-none">
+                </div>
+                
+                <!-- Input de fichier standard (Texte centré sur smartphone) -->
+                <div class="flex-grow-1 w-100 text-center text-sm-start">
+                    <input type="file" name="shop_logo" id="shop_logo" class="form-control rounded-3" accept="image/*" onchange="previewImageFile()">
+                    <div style="font-size: 11px;" class="text-muted mt-1" id="imageHelp">
+                        (Vous pouvez laisser vide pour utiliser l'avatar par défaut.)
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Section Vendeur Spécifique -->
+        <div class="p-3 bg-black bg-opacity-20 rounded-3 mb-4 border border-secondary border-opacity-10 d-none" id="vendorSection">
+            <div class="mb-0">
+                <label class="form-label small text-warning">Nom de votre Boutique</label>
+                <input type="text" name="shop_name" id="shop_name" class="form-control rounded-3" placeholder="Ex: Chez Mama Africa">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold rounded-3 mb-3">Finaliser l'inscription</button>
+        
+        <p class="text-center text-white small mb-0">
+            Déjà inscrit ? <a href="login.html" class="text-decoration-none text-info">Connectez-vous</a> 
+            <span class="ms-2">| <a href="index.html" class="text-decoration-none text-secondary">Retour</a></span>
+        </p>
+    </form>
+</div>
+
+<!-- Logique comportementale externe -->
+<script src="register_script.js"></script>
+
+</body>
+</html>

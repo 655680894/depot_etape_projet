@@ -1,0 +1,100 @@
+/* ==========================================================================
+   1. STRUCTURE DE BASE (MOBILE PAR DÉFAUT)
+   ========================================================================== */
+body { 
+    background-color: #0f172a; 
+    color: #f8fafc; 
+    min-height: 100vh; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 12px; /* Marges réduites sur mobile */
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.auth-card { 
+    background: #1e293b; 
+    border: 1px solid #334155; 
+    border-radius: 12px; /* Coins plus discrets sur mobile */
+    width: 100%; 
+    padding: 20px; /* Moins de padding interne sur mobile */
+}
+
+/* ==========================================================================
+   2. FORMULAIRES & BRANDING
+   ========================================================================== */
+.form-control, .form-select { 
+    background-color: #0f172a !important; 
+    color: #f8fafc !important; 
+    border: 1px solid #334155; 
+}
+
+.form-control:focus, .form-select:focus { 
+    border-color: #3b82f6; 
+    box-shadow: none; 
+}
+
+.logo-brand {
+    height: 28px; /* Plus petit sur mobile */
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.brand-text {
+    font-size: 20px; /* Plus compact sur mobile */
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+/* ==========================================================================
+   3. ZONE DE PRÉVISUALISATION DE L'IMAGE
+   ========================================================================== */
+.preview-wrapper {
+    width: 70px; /* Plus petit sur mobile */
+    height: 70px;
+    border-radius: 50%;
+    border: 2px dashed #334155;
+    background-color: #0f172a;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin: 0 auto; /* Centré par défaut sur mobile si empilé */
+}
+
+.preview-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+   4. ENHANCEMENTS POUR GRANDS ÉCRANS (TABLETTES / PC)
+   ========================================================================== */
+@media (min-width: 576px) {
+    body {
+        padding: 20px;
+    }
+
+    .auth-card { 
+        max-width: 480px; 
+        padding: 30px; 
+        border-radius: 16px;
+    }
+
+    .logo-brand {
+        height: 32px;
+    }
+
+    .brand-text {
+        font-size: 24px;
+    }
+
+    .preview-wrapper {
+        width: 80px;
+        height: 80px;
+        margin: 0; /* Reset du centrage auto pour s'aligner à gauche à côté du champ */
+    }
+}
