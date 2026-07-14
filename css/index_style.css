@@ -60,14 +60,16 @@ body {
 /* ==========================================================================
    3. NAVIGATION UTILITIES (AIDE, FAVORIS, THEME, QUIT)
    ========================================================================== */
-.nav-utillity-link,
-.theme-toggle-btn-nav { 
+/* Alignement sur la classe corrigée dans le HTML (nav-utility-link avec un seul 'l') */
+.nav-utility-link,
+#themeToggleBtn { 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
     justify-content: center;
     text-decoration: none; 
-    color: #475569; 
+    /* Couleur de texte secondaire native pour une adaptation automatique */
+    color: var(--bs-secondary-color); 
     font-size: 11px; 
     font-weight: 500; 
     cursor: pointer; 
@@ -77,39 +79,81 @@ body {
     transition: color 0.2s ease;
 }
 
-.nav-utillity-link i,
-.theme-toggle-btn-nav i { 
+.nav-utility-link i,
+#themeToggleBtn i { 
     font-size: 18px; 
-    color: #1e293b; 
+    /* Utilisation de la couleur principale du texte pour l'icône */
+    color: var(--bs-body-color); 
 }
 
-.nav-utillity-link:hover,
-.theme-toggle-btn-nav:hover { 
-    color: #f97316; 
+/* Effet au survol harmonisé avec l'identité visuelle de votre Express Market */
+.nav-utility-link:hover,
+#themeToggleBtn:hover,
+.nav-utility-link:hover i,
+#themeToggleBtn:hover i { 
+    color: #f97316 !important; 
 }
 
 .cart-box-display { 
-    border: 1.5px solid #e2e8f0; 
+    border: 1.5px solid var(--bs-border-color); 
     border-radius: 20px; 
     padding: 6px 12px; 
     display: flex; 
     align-items: center; 
     gap: 6px; 
     font-weight: bold; 
-    background-color: #f8fafc; 
-    color: #0f172a; 
+    background-color: var(--bs-tertiary-bg); 
+    color: var(--bs-body-color); 
     font-size: 13px; 
     text-decoration: none; 
 }
 
+/* ---- STYLES DU MODAL COMPTE ULTRA-LÉGER ---- */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px); /* Floute l'arrière-plan */
+    z-index: 2000; /* S'affiche par-dessus le header sticky */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+/* Activé en JS */
+.custom-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.custom-modal-box {
+    background-color: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 14px;
+    width: 90%;
+    max-width: 340px;
+    padding: 22px;
+    box-shadow: var(--bs-box-shadow-lg);
+    transform: scale(0.92);
+    transition: transform 0.2s ease;
+}
+
+.custom-modal-overlay.active .custom-modal-box {
+    transform: scale(1);
+}
+
 /* Subnav Catégories */
 .categories-subnav { 
-    background: #ffffff; 
-    border-bottom: 1px solid #e2e8f0; 
+    background-color: var(--bs-body-bg); 
+    border-bottom: 1px solid var(--bs-border-color); 
 }
 
 .categories-subnav .nav-link { 
-    color: #1e293b; 
+    color: var(--bs-body-color); 
     font-size: 11.5px; 
     font-weight: 700; 
     text-transform: uppercase; 
@@ -117,53 +161,63 @@ body {
     padding: 10px 12px; 
     border-bottom: 3px solid transparent; 
     white-space: nowrap; 
-    transition: all 0.2s; 
+    transition: color 0.2s ease, border-color 0.2s ease; 
 }
 
-.categories-subnav .nav-link:hover, 
+.categories-subnav .nav-link:hover {
+    color: #f97316;
+    border-bottom-color: #f97316;
+}
+
 .categories-subnav .nav-link.active { 
     color: #f97316; 
     border-bottom-color: #f97316; 
 }
 
 /* ==========================================================================
-   4. CONTENU & PRODUITS
+   4. CONTENU & PRODUITS (SLIDER / CARROUSEL & CARTES)
    ========================================================================== */
 .promo-banner-carousel { 
     border-radius: 12px; 
     overflow: hidden; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+    box-shadow: var(--bs-box-shadow-sm); 
 }
 
 .banner-slide-item { 
-    height: 180px; 
-    background-size: cover; 
-    background-position: center; 
+    height: 250px; /* Augmenté à 250px pour un meilleur rendu visuel sur PC */
     position: relative; 
+    background-color: #212529; /* Évite un flash blanc si l'image met du temps à charger */
 }
 
+/* Superposition sombre fluide pour garantir la lisibilité du texte sur tout type de photo */
 .banner-slide-item::before { 
     content: ""; 
     position: absolute; 
     top: 0; left: 0; right: 0; bottom: 0; 
-    background: linear-gradient(to right, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.2) 100%); 
+    background: linear-gradient(to right, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.2) 100%); 
     z-index: 1; 
 }
 
 .banner-caption-layer { 
     position: absolute; 
-    bottom: 20px; 
-    left: 20px; 
-    right: 20px; 
+    bottom: 24px; 
+    left: 24px; 
+    right: 24px; 
     z-index: 2; 
     color: #ffffff; 
 }
 
 .banner-title-main { 
-    font-size: 18px; 
+    font-size: 20px; /* Légèrement agrandi pour le confort de lecture */
     font-weight: 700; 
-    margin-bottom: 6px; 
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); 
+    margin-bottom: 8px; 
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6); 
+}
+
+/* Adaptabilité responsive du slider pour les smartphones */
+@media (max-width: 576px) {
+    .banner-slide-item { height: 180px; }
+    .banner-title-main { font-size: 16px; }
 }
 
 .banner-accent-badge { 
@@ -173,7 +227,7 @@ body {
     padding: 4px 12px; 
     font-weight: 800; 
     text-transform: uppercase; 
-    font-size: 13px; 
+    font-size: 12px; 
     border-radius: 4px; 
 }
 
@@ -186,11 +240,18 @@ body {
 }
 
 .product-card { 
-    background: #ffffff; 
-    border: 1px solid #e2e8f0; 
+    background-color: var(--bs-body-bg); 
+    border: 1px solid var(--bs-border-color); 
     border-radius: 10px; 
     overflow: hidden; 
     padding: 10px !important; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Effet d'élévation moderne au survol de la carte */
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--bs-box-shadow) !important;
 }
 
 .product-img { 
@@ -206,15 +267,20 @@ body {
 .small-accent-title { 
     font-size: 11px; 
     letter-spacing: 1.5px; 
-    color: #94a3b8 !important; 
+    color: var(--bs-secondary-color) !important; 
 }
 
 .footer-navigation-link { 
     font-size: 13px; 
-    color: #94a3b8; 
+    color: var(--bs-secondary-color); 
     text-decoration: none; 
     padding: 4px 0; 
     display: inline-block; 
+    transition: color 0.15s ease;
+}
+
+.footer-navigation-link:hover {
+    color: #f97316;
 }
 
 .social-btn { 
@@ -224,156 +290,81 @@ body {
     align-items: center; 
     justify-content: center; 
     border-radius: 50%; 
-    background: rgba(255, 255, 255, 0.03); 
+    background-color: rgba(255, 255, 255, 0.08); 
     color: #94a3b8; 
     text-decoration: none; 
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.social-btn:hover {
+    background-color: #f97316;
+    color: #ffffff;
 }
 
 .admin-hidden-link { 
-    color: #475569; 
+    color: var(--bs-secondary-color); 
     font-size: 12px; 
+    transition: color 0.15s ease;
 }
 
+.admin-hidden-link:hover {
+    color: var(--bs-body-color);
+}
 
+/* Évite que les éléments internes de votre burger ne bloquent le clic de la souris */
+.account-btn-trigger * {
+    pointer-events: none !important;
+}
 
-/* ### 2. Le CSS Complémentaire à ajouter (`index_style.css`)
-
-Ajoutez ces règles sous la section **4. CONTENU & PRODUITS** de votre fichier CSS principal pour donner un aspect moderne et épuré à vos nouveaux boutons et étiquettes :
-
-```css */
-/* Boutons circulaires d'actions (Like & Favoris) */
-.btn-action-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: inline-flex;
+/* ==========================================================================
+   MODAL COMPTE & NAVIGATION RESPONSIVE
+   ========================================================================== */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px); /* Floute l'arrière-plan */
+    z-index: 2000;
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    background-color: #f1f5f9;
-    color: #475569;
-    border: none;
-    transition: all 0.2s ease;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
 }
 
-.btn-action-circle:hover {
-    background-color: #e2e8f0;
-    color: #0f172a;
+.custom-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
-/* État actif du bouton de Like (Cœur Rouge rempli) */
-.btn-action-circle.liked {
-    background-color: #fee2e2;
-    color: #ef4444;
-}
-
-/* État actif du bouton Favoris (Marque-page Jaune rempli) */
-.btn-action-circle.favorited {
-    background-color: #fef3c7;
-    color: #f59e0b;
-}
-
-/* Badge de catalogue par-dessus l'image */
-.font-size-11 {
-    font-size: 11px !important;
-}
-
-/* Prise en compte du Dark Mode pour les nouveaux boutons */
-[data-bs-theme="dark"] .btn-action-circle {
-    background-color: #334155;
-    color: #cbd5e1;
-}
-
-[data-bs-theme="dark"] .btn-action-circle:hover {
-    background-color: #475569;
-    color: #f8fafc;
-}
-
-[data-bs-theme="dark"] .btn-action-circle.liked {
-    background-color: rgba(239, 68, 68, 0.2);
-    color: #f87171;
-}
-
-
-
-
-
-
-
-
-
-/* ==========================================================================
-   6. MODE SOMBRE (DARK MODE)
-   ========================================================================== */
-[data-bs-theme="dark"] body { background-color: #0f172a; color: #f8fafc; }
-[data-bs-theme="dark"] .main-header, [data-bs-theme="dark"] .categories-subnav { background: #1e293b; border-color: #334155; }
-[data-bs-theme="dark"] .categories-subnav .nav-link { color: #cbd5e1; }
-[data-bs-theme="dark"] .categories-subnav .nav-link:hover, [data-bs-theme="dark"] .categories-subnav .nav-link.active { color: #f97316; }
-
-[data-bs-theme="dark"] .search-wrapper .form-control { background-color: #0f172a !important; border-color: #334155; color: #f8fafc !important; }
-[data-bs-theme="dark"] .nav-utillity-link i,
-[data-bs-theme="dark"] .theme-toggle-btn-nav i { color: #f8fafc; }
-[data-bs-theme="dark"] .theme-toggle-btn-nav:hover i { color: #f97316; }
-
-[data-bs-theme="dark"] .cart-box-display { background-color: #0f172a; border-color: #334155; color: #f8fafc; }
-[data-bs-theme="dark"] .product-card { background: #1e293b; border-color: #334155; }
-
-/* ==========================================================================
-   7. MEDIA QUERIES (DESKTOP & TRANSITIONS)
-   ========================================================================== */
-@media (min-width: 768px) {
-    .logo-brand { height: 44px; }
-    .brand-text { font-size: 22px; }
-    .search-wrapper .form-control { height: 44px; font-size: 15px; }
-    .search-wrapper .search-btn { width: 36px; height: 36px; }
+/* Boîte du Modal adaptative (Responsive mobile & PC) */
+.custom-modal-box {
+    background-color: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--bs-box-shadow-lg);
+    transform: scale(0.9);
+    transition: transform 0.2s ease-in-out;
     
-    .nav-utillity-link,
-    .theme-toggle-btn-nav { font-size: 13px; padding: 0 10px; }
-    .nav-utillity-link i,
-    .theme-toggle-btn-nav i { font-size: 20px; }
-    
-    .cart-box-display { padding: 8px 16px; border-radius: 8px; font-size: 14px; }
-    .categories-subnav .nav-link { font-size: 12.5px; padding: 12px 16px; }
-    
-    .banner-slide-item { height: 360px; }
-    .banner-title-main { font-size: 32px; }
-    .banner-accent-badge { font-size: 18px; padding: 6px 18px; }
-    .product-img { height: 180px; }
-    .product-card { padding: 15px !important; }
-
-    /* Transitions & Animations au survol (Desktop) */
-    .footer-navigation-link { transition: all 0.2s ease-in-out; }
-    .footer-navigation-link:hover { color: #3b82f6; transform: translateX(4px); }
-    
-    .social-btn { transition: all 0.2s ease; }
-    .social-btn:hover { background: rgba(59, 130, 246, 0.1); color: #3b82f6; transform: translateY(-2px); }
-    
-    .dev-signature-link { transition: color 0.2s; }
-    .dev-signature-link:hover { color: #60a5fa !important; }
-    
-    .admin-hidden-link { transition: all 0.2s ease; }
-    .admin-hidden-link:hover { color: #f59e0b; text-shadow: 0 0 8px rgba(245, 158, 11, 0.3); }
+    /* Gestion de la taille responsive */
+    width: calc(100% - 32px); /* Laisse une marge de 16px de chaque côté sur mobile */
+    max-width: 400px;         /* Empêche le modal de devenir trop large sur PC */
+    margin: auto;
 }
 
+.custom-modal-overlay.active .custom-modal-box {
+    transform: scale(1);
+}
 
+/* Optimisation des boutons à l'intérieur du modal pour le tactile mobile */
+.custom-modal-box .btn {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 15px;
+}
 
-
-
-
-
-
-.small-accent-title { font-size: 11px; letter-spacing: 1.5px; color: #94a3b8 !important; }
-    .footer-navigation-link { font-size: 13px; color: #94a3b8; text-decoration: none; padding: 4px 0; display: inline-block; }
-    .social-btn { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.03); color: #94a3b8; text-decoration: none; }
-    .admin-hidden-link { color: #475569; font-size: 12px; }
-
-    @media (min-width: 768px) {
-        .footer-navigation-link { transition: all 0.2s ease-in-out; }
-        .footer-navigation-link:hover { color: #3b82f6; transform: translateX(4px); }
-        .social-btn { transition: all 0.2s ease; }
-        .social-btn:hover { background: rgba(59, 130, 246, 0.1); color: #3b82f6; transform: translateY(-2px); }
-        .dev-signature-link { transition: color 0.2s; }
-        .dev-signature-link:hover { color: #60a5fa !important; }
-        .admin-hidden-link { transition: all 0.2s ease; }
-        .admin-hidden-link:hover { color: #f59e0b; text-shadow: 0 0 8px rgba(245, 158, 11, 0.3); }
-    }
