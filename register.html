@@ -1,90 +1,603 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="fr">
+<!-- L'attribut data-bs-theme sera géré dynamiquement par un script ultra-léger -->
+<html lang="fr" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Express Market | Rejoindre la plateforme</title>
-    <!-- Bootstrap CSS -->
+    <title>Express Market | Accueil</title>
+    <!-- CSS Bootstrap et Icônes -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons (Correction du lien CDN brisé ou générique) -->
-    <link rel="stylesheet" href="https://jsdelivr.net">
-    <!-- Fichier CSS Mobile-First -->
-    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <!-- Fichiers Statiques Django -->
+    <link rel="stylesheet" href="{% static 'css/index_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer_style.css' %}">
+    <script src="{% static 'js/mode.js' %}"></script>
+
+   <script>
+    // Ces fonctions s'exécuteront même si vos fichiers JS externes échouent à charger
+    function openAccountModal() {
+        const modal = document.getElementById('customAccountModal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeAccountModal() {
+        const modal = document.getElementById('customAccountModal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    function closeAccountModalOnOverlay(event) {
+        if (event.target.id === 'customAccountModal') {
+            closeAccountModal();
+        }
+    }
+</script>
+
 </head>
 <body>
-    
-<div class="auth-card shadow-lg">
-    <!-- Zone de Branding -->
-    <div class="d-flex align-items-center justify-content-center gap-2 mb-4">
-        <img src="images/logo.png" alt="EM" class="logo-brand">
-        <span class="brand-text">
-            <span style="color: #60a5fa;">Express</span><span style="color: #f97316;">Market</span>
-        </span>
+
+        <!-- HEADER PRINCIPAL -->
+    <header class="main-header sticky-top bg-body shadow-sm">
+        <div class="container py-2 py-md-3 px-3">
+            <div class="row align-items-center g-2 g-md-3">
+                
+                <!-- Zone Logo -->
+                <div class="col-7 col-md-4 col-lg-3">
+                    <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'index' %}">
+                        <img src="{% static 'image/logo.png' %}" alt="Express Market Logo" class="logo-brand" height="40">
+                        <span class="brand-text fw-bold">
+                            <span class="text-primary">Express</span><span class="text-warning">Market</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Barre de Recherche Unique -->
+                <div class="col-12 col-md-5 col-lg-6 order-3 order-md-2 mt-2 mt-md-0">
+                    <form method="GET" action="" class="search-wrapper position-relative w-100">
+                        <input type="search" id="liveSearchInput" class="form-control" placeholder="Chercher un produit, un vendeur, un secteur..." onkeyup="filterCatalogProducts()">
+                        <button class="search-btn btn position-absolute end-0 top-50 translate-middle-y" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Liens Utilitaires -->
+                <div class="col-5 col-md-3 order-2 order-md-3 d-flex align-items-center justify-content-end gap-2">
+                    
+                     <!-- 1. AIDE -->
+                    <div class="nav-utility-link position-relative" title="Aide" style="cursor: pointer;">
+                        <i class="bi bi-chat-left-text"></i>
+                        <span class="d-none d-lg-inline ms-1">Aide</span>
+                    </div>
+
+                    <!-- 2. FAVORIS -->
+                    <div class="nav-utility-link position-relative" onclick="window.location.href=''" title="Favoris" style="cursor: pointer;">
+                        <i class="bi bi-heart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info" id="favBadgeCount" style="font-size: 9px;">0</span>
+                    </div>
+
+                    <!-- Bouton Mode Sombre Ultra-Léger -->
+                    <button class="btn btn-link nav-link p-1 d-flex align-items-center" id="themeToggleBtn" onclick="toggleTheme()" title="Changer de mode">
+                        <svg id="themeIcon" xmlns="http://w3.org" width="18" height="18" fill="currentColor" class="bi bi-moon-stars-fill" viewBox="0 0 16 16">
+                            <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.26 7.26 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.3 7.3 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+                            <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.73 1.73 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.73 1.73 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.73 1.73 0 0 0 1.097-1.097zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.15 1.15 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.15 1.15 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/>
+                        </svg>
+                    </button>
+
+                    <!-- 4. DECONNEXION DJANGO -->
+                    <a href="" class="nav-utility-link" title="Quitter la session">
+                        <i class="bi bi-box-arrow-right text-danger"></i>
+                    </a>
+
+                    <!-- Mon Compte (Converti en bouton déclencheur du modal) -->
+                                        <!-- Menu Burger (Disponible sur PC et Mobile pour déclencher le modal) -->
+                    <button type="button" class="nav-utility-link text-decoration-none bg-transparent border-0 account-btn-trigger" onclick="openAccountModal()" title="Menu">
+                        <i class="bi bi-list" style="font-size: 22px;"></i>
+                    </button>
+
+                    
+                </div>
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- FENÊTRE MODALE COMPTE (Masquée par défaut) -->
+    <div id="customAccountModal" class="custom-modal-overlay" onclick="closeAccountModalOnOverlay(event)">
+        <div class="custom-modal-box">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                
+                <button type="button" class="btn-close shadow-none" onclick="closeAccountModal()" aria-label="Fermer"></button>
+            </div>
+            <div class="d-flex flex-column gap-2">
+                <a href="{% url 'login' %}" class="btn btn-primary w-100 fw-bold rounded-pill py-2 d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-box-arrow-in-right"></i> Connexion
+                </a>
+                <a href="{% url 'register' %}" class="btn btn-outline-secondary w-100 fw-bold rounded-pill py-2 d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-person-plus"></i> Inscription
+                </a>
+            </div>
+        </div>
     </div>
 
-    <h3 class="fw-bold text-center text-primary mb-1">Créer un compte</h3>
-    <p class="text-center text-muted small mb-4">Rejoignez le marché dynamique d'Express Market</p>
-
-    <form action="login.html" method="POST" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label class="form-label small text-white">Nom d'utilisateur</label>
-            <input type="text" name="username" class="form-control rounded-3" required autocomplete="off">
-        </div>
-        
-        <div class="mb-3">
-            <label class="form-label small text-white">Numéro de Téléphone</label>
-            <input type="tel" name="tel" class="form-control rounded-3" required placeholder="EX:+237xxxxxxxx">
-        </div>
-        
-        <div class="mb-3">
-            <label class="form-label small text-white">Type de Profil</label>
-            <select name="role" id="roleSelect" class="form-select rounded-3" onchange="toggleVendorFields()">
-                <option value="client">Acheteur</option>
-                <option value="vendeur">Vendeur</option>
-            </select>
-        </div>
-
-        <!-- Champ Image : Structure adaptative (Verticale sur mobile, Horizontale sur PC) -->
-        <div class="mb-3">
-            <label class="form-label small text-white" id="imageLabel">Photo de Profil</label>
-            <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-3">
+        <!-- Sous-navigation Catégories -->
+        <nav class="categories-subnav bg-body-tertiary border-bottom py-2">
+            <div class="container d-flex align-items-center overflow-x-auto justify-content-start justify-content-md-center gap-3 px-2">
+                <a href="{% url 'index' %}" class="nav-link text-body">Tout le Marché</a>
                 
-                <!-- Conteneur d'affichage de l'image -->
-                <div class="preview-wrapper flex-shrink-0" id="previewContainer">
-                    <i class="bi bi-image text-muted fs-4" id="previewPlaceholder"></i>
-                    <img src="" alt="Aperçu" id="imagePreview" class="d-none">
+                <a href="#" class="nav-link text-primary fw-medium">
+                    <i class="bi bi-fire text-warning me-1"></i> Boutiques Populaires
+                </a>
+
+                <a href="{% url 'index' %}" class="nav-link text-body">Autres</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="container px-3 py-3">
+
+        <!-- Section Slider / Carousel -->
+        <section class="mb-4 mt-2">
+            <!-- Ajout des classes d'initialisation Bootstrap pour garantir l'effet visuel -->
+            <div id="featuredShopsCarousel" class="carousel slide carousel-fade promo-banner-carousel" data-bs-ride="carousel">
+                
+                <!-- Indicateurs (Les petits traits cliquables en bas) -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#featuredShopsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#featuredShopsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#featuredShopsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-                
-                <!-- Input de fichier standard (Texte centré sur smartphone) -->
-                <div class="flex-grow-1 w-100 text-center text-sm-start">
-                    <input type="file" name="shop_logo" id="shop_logo" class="form-control rounded-3" accept="image/*" onchange="previewImageFile()">
-                    <div style="font-size: 11px;" class="text-muted mt-1" id="imageHelp">
-                        (Vous pouvez laisser vide pour utiliser l'avatar par défaut.)
+
+                <div class="carousel-inner rounded-3 overflow-hidden shadow-sm">
+                    
+                    <!-- IMAGE SLIDE 1 -->
+                    <div class="carousel-item active" data-bs-interval="4000">
+                        <div class="banner-slide-item position-relative" style="min-height: 250px; background-color: #212529;">
+                            <!-- Intégration de la balise static pour Django -->
+                            <img src="{% static 'image/image1.png' %}" alt="Offres Express Market" class="w-100 h-100 object-fit-cover position-absolute top-0 start-0 opacity-75">
+                            
+                            <!-- Calque de texte par-dessus l'image -->
+                            <div class="banner-caption-layer position-absolute top-50 start-0 translate-middle-y w-100 px-4" style="z-index: 2;">
+                                <div class="banner-title-main text-white h3 fw-bold mb-3">Découvrez les offres de la semaine</div>
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    <span class="badge bg-danger rounded-pill px-3 py-2">Boutique En Vedette</span>
+                                    <a href="#" class="btn btn-sm btn-light fw-bold rounded-pill px-3 shadow-sm text-dark">
+                                        Visiter <i class="bi bi-arrow-right ms-1 text-danger"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMAGE SLIDE 2 -->
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <div class="banner-slide-item position-relative" style="min-height: 250px; background-color: #212529;">
+                            <!-- Intégration de la balise static pour Django -->
+                            <img src="{% static 'image/image2.png' %}" alt="Rejoindre Express Market" class="w-100 h-100 object-fit-cover position-absolute top-0 start-0 opacity-75">
+                            
+                            <div class="banner-caption-layer position-absolute top-50 start-0 translate-middle-y w-100 px-4" style="z-index: 2;">
+                                <div class="banner-title-main text-white h3 fw-bold mb-3">Boostez vos ventes en ligne</div>
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    <span class="badge bg-primary rounded-pill px-3 py-2">Espace Vendeur</span>
+                                    <a href="" class="btn btn-sm btn-light fw-bold rounded-pill px-3 shadow-sm text-dark">
+                                        Créer une boutique <i class="bi bi-shop ms-1 text-primary"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMAGE SLIDE 3 -->
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <div class="banner-slide-item position-relative" style="min-height: 250px; background-color: #212529;">
+                            <!-- Intégration de la balise static pour Django -->
+                            <img src="{% static 'image/image2.png' %}" alt="Nouveautés Express Market" class="w-100 h-100 object-fit-cover position-absolute top-0 start-0 opacity-75">
+                            
+                            <div class="banner-caption-layer position-absolute top-50 start-0 translate-middle-y w-100 px-4" style="z-index: 2;">
+                                <div class="banner-title-main text-white h3 fw-bold mb-3">Des produits locaux de qualité</div>
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    <span class="badge bg-success rounded-pill px-3 py-2">Nouveautés</span>
+                                    <a href="#" class="btn btn-sm btn-light fw-bold rounded-pill px-3 shadow-sm text-dark">
+                                        Découvrir <i class="bi bi-basket ms-1 text-success"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        <!-- Boutons Précédent / Suivant du Carrousel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#featuredShopsCarousel" data-bs-slide="prev" style="z-index: 3;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Précédent</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featuredShopsCarousel" data-bs-slide="next" style="z-index: 3;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Suivant</span>
+        </button>
+    </div>
+</section>
+
+<!-- Section Offres et Grille Produits -->
+<section class="mb-5">
+    <h6 class="fw-bold text-uppercase text-secondary small mb-3" style="letter-spacing: 0.5px; font-size:11px;">
+        <i class="bi bi-grid-3x3-gap me-1"></i> Offres en cours sur ExpressMarket
+    </h6>
+    
+    <!-- Message Vide (Adapté pour le mode sombre avec bg-body-tertiary) -->
+    <div class="text-center py-5 border border-secondary border-opacity-10 rounded bg-body-tertiary p-4 shadow-sm mb-4 d-none">
+        <i class="bi bi-handbag text-body display-6"></i>
+        <p class="fw-bold small mt-2 mb-0">Aucun produit référencé dans cette catégorie pour le moment.</p>
+    </div>
+
+    <!-- Grille d'articles unique unifiée pour un alignement par 3 -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-2 g-md-3" id="catalogGrid">
+        
+        <!-- ARTICLE 1 -->
+        <div class="col product-item-container">
+            <div class="card product-card h-100 d-flex flex-column justify-content-between bg-body shadow-sm p-2">
+                <div>
+                    <!-- Conteneur de l'image optimisé pour le badge -->
+                    <div class="position-relative overflow-hidden rounded-2">
+                        <img src="{% static 'image/btq2.png' %}" class="product-img w-100" alt="Produit 1" style="height: 200px; object-fit: cover;">
+                        
+                        <!-- BADGE REVISITÉ : Flouté et transparent -->
+                        <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                              style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                            Mode & Styles
+                        </span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                        <h6 class="fw-bold mb-0 text-truncate product-title-text text-body-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 1</h6>
+                        <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+                    </div>
+                    <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                        <i class="bi bi-shop text-primary small"></i>
+                        <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
                     </div>
                 </div>
-
+                <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+                    <div class="d-flex align-items-center gap-1">
+                        <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_1', this)" title="Liker l'article">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_1')" title="Ajouter aux favoris">
+                            <i class="bi bi-bookmark-star"></i>
+                        </button>
+                    </div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_1', 'Nom Article 1')", style="font-size: 11px;" title="Ajouter au panier">
+                            <i class="bi bi-cart-plus"></i> Prendre
+                        </button>
+                        <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_1', 'Nom Article 1')", style="font-size: 11px;">
+                            <i class="bi bi-whatsapp"></i> Commander
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Section Vendeur Spécifique -->
-        <div class="p-3 bg-black bg-opacity-20 rounded-3 mb-4 border border-secondary border-opacity-10 d-none" id="vendorSection">
-            <div class="mb-0">
-                <label class="form-label small text-warning">Nom de votre Boutique</label>
-                <input type="text" name="shop_name" id="shop_name" class="form-control rounded-3" placeholder="Ex: Chez Mama Africa">
+        <!-- ARTICLE 2 -->
+        <div class="col product-item-container">
+            <div class="card product-card h-100 d-flex flex-column justify-content-between bg-body shadow-sm p-2">
+                <div>
+                    <!-- Conteneur de l'image optimisé pour le badge -->
+                    <div class="position-relative overflow-hidden rounded-2">
+                        <img src="{% static 'image/btq4.png' %}" class="product-img w-100" alt="Produit 2" style="height: 200px; object-fit: cover;">
+                        
+                        <!-- BADGE REVISITÉ -->
+                        <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                              style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                            Mode & Styles
+                        </span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                        <h6 class="fw-bold mb-0 text-truncate product-title-text text-body-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 2</h6>
+                        <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+                    </div>
+                    <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                        <i class="bi bi-shop text-primary small"></i>
+                        <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+                    </div>
+                </div>
+                <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+                    <div class="d-flex align-items-center gap-1">
+                        <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_2', this)" title="Liker l'article">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_2')" title="Ajouter aux favoris">
+                            <i class="bi bi-bookmark-star"></i>
+                        </button>
+                    </div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_2', 'Nom Article 2')", style="font-size: 11px;" title="Ajouter au panier">
+                            <i class="bi bi-cart-plus"></i> Prendre
+                        </button>
+                        <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_2', 'Nom Article 2')", style="font-size: 11px;">
+                            <i class="bi bi-whatsapp"></i> Commander
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ARTICLE 3 -->
+        <div class="col product-item-container">
+            <div class="card product-card h-100 d-flex flex-column justify-content-between bg-body shadow-sm p-2">
+                <div>
+                    <!-- Conteneur de l'image optimisé pour le badge -->
+                    <div class="position-relative overflow-hidden rounded-2">
+                        <!-- Balise static Django -->
+                        <img src="{% static 'image/btq6.png' %}" class="product-img w-100" alt="Produit 3" style="height: 200px; object-fit: cover;">
+                        
+                        <!-- BADGE REVISITÉ -->
+                        <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                              style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                            Mode & Styles
+                        </span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                        <!-- text-body-emphasis gère l'inversion automatique en blanc/noir -->
+                        <h6 class="fw-bold mb-0 text-truncate product-title-text text-body-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 3</h6>
+                        <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+                    </div>
+                    <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                        <i class="bi bi-shop text-primary small"></i>
+                        <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+                    </div>
+                </div>
+                <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+                    <div class="d-flex align-items-center gap-1">
+                        <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_3', this)" title="Liker l'article">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_3')" title="Ajouter aux favoris">
+                            <i class="bi bi-bookmark-star"></i>
+                        </button>
+                    </div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_3', 'Nom Article 3')" style="font-size: 11px;" title="Ajouter au panier">
+                            <i class="bi bi-cart-plus"></i> Prendre
+                        </button>
+                        <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_3', 'Nom Article 3')" style="font-size: 11px;">
+                            <i class="bi bi-whatsapp"></i> Commander
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold rounded-3 mb-3">Finaliser l'inscription</button>
+        <!-- ARTICLE 4 (Précédemment ARTICLE 5) -->
+        <div class="col product-item-container">
+            <div class="card product-card h-100 d-flex flex-column justify-content-between bg-body shadow-sm p-2">
+                <div>
+                    <!-- Conteneur de l'image optimisé pour le badge -->
+                    <div class="position-relative overflow-hidden rounded-2">
+                        <!-- Balise static Django -->
+                        <img src="{% static 'image/btq8.png' %}" class="product-img w-100" alt="Produit 4" style="height: 200px; object-fit: cover;">
+                        
+                        <!-- BADGE REVISITÉ -->
+                        <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                              style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                            Electro menager
+                        </span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                        <h6 class="fw-bold mb-0 text-truncate product-title-text text-body-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 4</h6>
+                        <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+                    </div>
+                    <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                        <i class="bi bi-shop text-primary small"></i>
+                        <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+                    </div>
+                </div>
+                <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+                    <div class="d-flex align-items-center gap-1">
+                        <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_4', this)" title="Liker l'article">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_4')" title="Ajouter aux favoris">
+                            <i class="bi bi-bookmark-star"></i>
+                        </button>
+                    </div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_4', 'Nom Article 4')" style="font-size: 11px;" title="Ajouter au panier">
+                            <i class="bi bi-cart-plus"></i> Prendre
+                        </button>
+                        <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_4', 'Nom Article 4')" style="font-size: 11px;">
+                            <i class="bi bi-whatsapp"></i> Commander
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ARTICLE 5 -->
+        <div class="col product-item-container">
+            <div class="card product-card h-100 d-flex flex-column justify-content-between bg-body shadow-sm p-2">
+                <div>
+                    <!-- Conteneur de l'image optimisé pour le badge -->
+                    <div class="position-relative overflow-hidden rounded-2">
+                        <!-- Balise static Django -->
+                        <img src="{% static 'image/elek3.png' %}" class="product-img w-100" alt="Produit 5" style="height: 200px; object-fit: cover;">
+                        
+                        <!-- BADGE REVISITÉ -->
+                        <span class="badge bg-dark bg-opacity-75 position-absolute top-0 start-0 m-2 px-2 py-1 border border-light border-opacity-25 shadow-sm" 
+                              style="font-size: 10px; letter-spacing: 0.3px; backdrop-filter: blur(2px);">
+                            Electro menager
+                        </span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-start mt-2 mb-1">
+                        <!-- text-body-emphasis pour gérer le texte clair/sombre automatiquement -->
+                        <h6 class="fw-bold mb-0 text-truncate product-title-text text-body-emphasis" style="max-width: 65%; font-size:14px;">Nom Article 5</h6>
+                        <span class="text-danger fw-bold small flex-shrink-0" style="font-size:13px;">15 000 CFA</span>
+                    </div>
+                    <div class="shop-badge mb-3 d-flex align-items-center gap-1">
+                        <i class="bi bi-shop text-primary small"></i>
+                        <span class="small text-muted text-truncate shop-title-text fw-semibold" style="font-size: 11px;">Chez Mama Africa</span>
+                    </div>
+                </div>
+                <div class="card-action-footer d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top border-secondary border-opacity-10">
+                    <div class="d-flex align-items-center gap-1">
+                        <button class="btn btn-action-circle" onclick="toggleLikeItem('prod_5', this)" title="Liker l'article">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <button class="btn btn-action-circle" onclick="toggleFavoriteItem('prod_5')" title="Ajouter aux favoris">
+                            <i class="bi bi-bookmark-star"></i>
+                        </button>
+                    </div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-sm btn-primary rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="addItemToVirtualCart('prod_5', 'Nom Article 5')" style="font-size: 11px;" title="Ajouter au panier">
+                            <i class="bi bi-cart-plus"></i> Prendre
+                        </button>
+                        <button class="btn btn-sm btn-success btn-order-bounce rounded-pill px-2 fw-bold d-flex align-items-center gap-1" onclick="checkoutDirectly('prod_5', 'Nom Article 5')" style="font-size: 11px;">
+                            <i class="bi bi-whatsapp"></i> Commander
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- Fermeture de catalogGrid (Ajoutée pour éviter de casser la mise en page) -->
+</section> <!-- Fermeture de la section Grille (Ajoutée pour la propreté structurelle) -->
+
+</main> <!-- Fin du CONTENU PRINCIPAL -->
+
+<!-- FOOTER PRINCIPAL -->
+<footer class="mt-5 border-top bg-dark text-light-emphasis" aria-label="Pied de page">
+    <div class="container pt-4 pb-3 px-3">
         
-        <p class="text-center text-white small mb-0">
-            Déjà inscrit ? <a href="login.html" class="text-decoration-none text-info">Connectez-vous</a> 
-            <span class="ms-2">| <a href="index.html" class="text-decoration-none text-secondary">Retour</a></span>
-        </p>
-    </form>
-</div>
+        <div class="row g-4 text-center text-sm-start">
+            
+            <div class="col-12 col-lg-5">
+                <h5 class="text-white fw-bold mb-3 d-flex align-items-center justify-content-center justify-content-sm-start gap-2">
+                    <span class="p-2 rounded-3 bg-primary bg-opacity-10 text-primary d-inline-flex">
+                        <i class="bi bi-shop fs-5"></i>
+                    </span>
+                    <span>Express Market</span>
+                </h5>
+                <p class="small mb-3" style="line-height: 1.6; font-size: 13px;">
+                    La vitrine e-commerce pensée pour la communauté étudiante. Fini le désordre des groupes WhatsApp : centralisez vos produits, gérez vos commandes et boostez votre visibilité sur le campus.
+                </p>
+                <!-- Correction de la propriété gap invalide (gap-2.5 n'existe pas dans Bootstrap) -->
+                <div class="d-flex justify-content-center justify-content-sm-start gap-2">
+                    <a href="#" class="social-btn text-white-50 text-decoration-none" aria-label="WhatsApp"><i class="bi bi-whatsapp fs-5"></i></a>
+                    <a href="#" class="social-btn text-white-50 text-decoration-none" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a>
+                    <a href="mailto:support@expressmarket.com" class="social-btn text-white-50 text-decoration-none" aria-label="Email"><i class="bi bi-envelope fs-5"></i></a>
+                </div>
+            </div>
+            <!-- Suite de la ligne du pied de page -->
+            <div class="col-12 col-sm-6 col-lg-3">
+                <h6 class="text-uppercase fw-bold mb-3 small-accent-title text-white">Ressources</h6>
+                <ul class="list-unstyled small">
+                    <!-- Ajoutez vos liens de ressources ici si nécessaire -->
+                    <li><a href="#" class="text-white-50 text-decoration-none">Aide & Support</a></li>
+                    <li><a href="#" class="text-white-50 text-decoration-none">Conditions d'utilisation</a></li>
+                </ul>
+            </div>
 
-<!-- Logique comportementale externe -->
-<script src="register_script.js"></script>
+            <div class="col-12 col-sm-6 col-lg-4 d-flex flex-column justify-content-between">
+                <div>
+                    <h6 class="text-uppercase fw-bold mb-3 small-accent-title text-white">Business</h6>
+                    <p class="text-white-50 small mb-3" style="font-size: 12px;">Vous gérez un commerce ou un service sur le campus ?</p>
+                </div>
+                <!-- Remplacement du lien .html par l'URL Django register ou login -->
+                <a href="" class="btn btn-primary btn-sm rounded-pill py-2 px-3 w-100 fw-semibold text-nowrap shadow-sm">
+                    <i class="bi bi-plus-circle me-1"></i>Ouvrir ma boutique
+                </a>
+            </div>
+
+        </div> <!-- Fin de la rangée principale du footer -->
+
+        <hr class="mt-4 mb-3 border-secondary border-opacity-25">
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            
+            <div class="d-flex flex-column flex-sm-row align-items-center gap-2 gap-sm-3 order-2 order-md-1">
+                <p class="text-white-50 small mb-0">&copy; 2026 Express Market. Tous droits réservés.</p>
+                <span class="text-white-50 d-none d-sm-inline">&bull;</span>
+                <a href="#" class="admin-hidden-link small text-decoration-none text-white-50">
+                    <i class="bi bi-shield-lock-fill me-1"></i>Administration
+                </a>
+            </div>
+            
+            <p class="text-white-50 small mb-0 order-1 order-md-2">
+                POWERED <i class="bi bi-heart-fill text-danger mx-1"></i> by 
+                <a href="https://github.com" target="_blank" class="dev-signature-link text-decoration-none fw-bold text-info">
+                    Nelson.App
+                </a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- SCRIPT BOOTSTRAP 5 JAVASCRIPT (Indispensable pour le Slider / Carrousel) -->
+<script src="https://jsdelivr.net"></script>
+
+<!-- FICHIER APPLICATION JAVASCRIPT VIA DJANGO STATIC -->
+<script src="{% static 'js/index_script.js' %}"></script>
+
+<!-- SCRIPT COMPACT MODE SOMBRE (PILOTAGE DE L'ICÔNE NATIVE) -->
+<script>
+
+// Les deux formes géométriques de la lune et du soleil stockées de façon légère
+const paths = {
+    light: "M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.26 7.26 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.3 7.3 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z",
+    dark: "M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13M2.343 2.343a.5.5 0 0 1 .707 0l1.414 1.414a.5.5 0 1 1-.707.707L2.343 3.05a.5.5 0 0 1 0-.707m10.607 10.607a.5.5 0 0 1 .707 0l1.414 1.414a.5.5 0 1 1-.707.707l-1.414-1.414a.5.5 0 0 1 0-.707M0 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 8m13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5M4.464 11.536a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m10.607-10.607a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0"
+};
+
+function toggleTheme() {
+    const nextTheme = document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-bs-theme', nextTheme);
+    localStorage.setItem('theme', nextTheme);
+    
+    // Met à jour le tracé SVG instantanément
+    document.querySelector('#themeIcon path').setAttribute('d', paths[nextTheme]);
+}
+
+// Assure la cohérence visuelle de l'icône au rechargement
+document.addEventListener('DOMContentLoaded', () => {
+    const activeTheme = localStorage.getItem('theme') || 'light';
+    document.querySelector('#themeIcon path').setAttribute('d', paths[activeTheme]);
+});
+
+
+    function openAccountModal() {
+        const modal = document.getElementById('customAccountModal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Désactive le scroll de la page sous le modal
+        }
+    }
+
+    function closeAccountModal() {
+        const modal = document.getElementById('customAccountModal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Réactive le scroll de la page
+        }
+    }
+
+    function closeAccountModalOnOverlay(event) {
+        // Permet de fermer le modal si on clique n'importe où à côté du menu
+        if (event.target.id === 'customAccountModal') {
+            closeAccountModal();
+        }
+    }
+
+
+</script>
 
 </body>
 </html>
